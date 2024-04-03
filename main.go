@@ -326,9 +326,9 @@ func main() {
 
 	writer := csv.NewWriter(file)
 	if *speedTest > 0 {
-		writer.Write([]string{"IP地址", "端口", "TLS", "数据中心", "地区", "城市", "网络延迟", "下载速度"})
+		writer.Write([]string{"IP地址", "端口", "TLS", "数据中心", "地区", "城市", "TCP延迟(ms)", "速度(MB/s)"})
 	} else {
-		writer.Write([]string{"IP地址", "端口", "TLS", "数据中心", "地区", "城市", "网络延迟"})
+		writer.Write([]string{"IP地址", "端口", "TLS", "数据中心", "地区", "城市", "TCP延迟(ms)"})
 	}
 	for _, res := range results {
 		if *speedTest > 0 {
@@ -430,7 +430,7 @@ func getDownloadSpeed(ip string) float64 {
 	// 复制响应体到/dev/null，并计算下载速度
 	written, _ := io.Copy(io.Discard, resp.Body)
 	duration := time.Since(startTime)
-	speed := float64(written) / duration.Seconds() / 1024
+	speed := float64(written) / duration.Seconds() / 1024 / 1024
 
 	// 输出结果
 	fmt.Printf("IP %s 端口 %s 下载速度 %.0f kB/s\n", ip, strconv.Itoa(*defaultPort), speed)
