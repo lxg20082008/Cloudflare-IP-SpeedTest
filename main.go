@@ -332,7 +332,7 @@ func main() {
 	}
 	for _, res := range results {
 		if *speedTest > 0 {
-			writer.Write([]string{res.result.ip, strconv.Itoa(res.result.port), strconv.FormatBool(*enableTLS), res.result.dataCenter, res.result.region, res.result.city, res.result.latency, fmt.Sprintf("%.0f kB/s", res.downloadSpeed)})
+			writer.Write([]string{res.result.ip, strconv.Itoa(res.result.port), strconv.FormatBool(*enableTLS), res.result.dataCenter, res.result.region, res.result.city, res.result.latency, fmt.Sprintf("%.0fMB/s", res.downloadSpeed)})
 		} else {
 			writer.Write([]string{res.result.ip, strconv.Itoa(res.result.port), strconv.FormatBool(*enableTLS), res.result.dataCenter, res.result.region, res.result.city, res.result.latency})
 		}
@@ -433,6 +433,6 @@ func getDownloadSpeed(ip string) float64 {
 	speed := float64(written) / duration.Seconds() / 1024 / 1024
 
 	// 输出结果
-	fmt.Printf("IP %s 端口 %s 下载速度 %.0f kB/s\n", ip, strconv.Itoa(*defaultPort), speed)
+	fmt.Printf("IP %s 端口 %s 下载速度 %.0f\n", ip, strconv.Itoa(*defaultPort), speed)
 	return speed
 }
